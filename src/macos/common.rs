@@ -62,6 +62,8 @@ pub type CGEventMask = u64;
 #[allow(non_upper_case_globals)]
 pub const kCGEventMaskForAllEvents: u64 = (1 << CGEventType::LeftMouseDown as u64)
     + (1 << CGEventType::LeftMouseUp as u64)
+    + (1 << CGEventType::OtherMouseUp as u64)
+    + (1 << CGEventType::OtherMouseDown as u64)
     + (1 << CGEventType::RightMouseDown as u64)
     + (1 << CGEventType::RightMouseUp as u64)
     + (1 << CGEventType::MouseMoved as u64)
@@ -166,6 +168,8 @@ pub unsafe fn convert(
     let option_type = match _type {
         CGEventType::LeftMouseDown => Some(EventType::ButtonPress(Button::Left)),
         CGEventType::LeftMouseUp => Some(EventType::ButtonRelease(Button::Left)),
+        CGEventType::OtherMouseDown => Some(EventType::ButtonPress(Button::Middle)),
+        CGEventType::OtherMouseUp => Some(EventType::ButtonRelease(Button::Middle)),
         CGEventType::RightMouseDown => Some(EventType::ButtonPress(Button::Right)),
         CGEventType::RightMouseUp => Some(EventType::ButtonRelease(Button::Right)),
         CGEventType::MouseMoved => {
